@@ -1,0 +1,12 @@
+Get-ChildItem c:\test\test2\*.jpg -Recurse | foreach { 
+$x = $_.LastWriteTime.ToShortDateString()
+$new_folder_name = Get-Date $x -Format yyyy.MM.dd
+$des_path = "c:\test123\$new_folder_name"
+
+if (test-path $des_path){ 
+    copy-item $_.fullname $des_path 
+    } else {
+    new-item -ItemType directory -Path $des_path
+    copy-item $_.fullname $des_path 
+    }
+}
